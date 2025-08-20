@@ -9,6 +9,10 @@ export const CardList = () => {
     {
       title: "imagenes",
       to: "/imagenes",
+    },
+    {
+      title: "rutas anidadas",
+      to: "/rutasanidadas",
     }
   ]
 
