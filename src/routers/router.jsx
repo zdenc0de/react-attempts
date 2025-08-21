@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { Page404 } from "../pages/Page404";
@@ -16,7 +16,9 @@ export const MyRoutes = () => (
       <Route path="/useEffect" element={<UseEffectPage />} />
       <Route path="/imagenes" element={<ImagenesPage />} />
       <Route path="/rutasanidadas" element={<RutasAnidadasPage />} >
-        <Route path="perfil" element={<PerfilPage />} />
+        {/* ruta por defecto */}
+        <Route index element={<Navigate to="perfil/10" replace/>} />
+        <Route path="perfil/:id" element={<PerfilPage />} />
         <Route path="configuracion" element={<ConfiguracionPage />} />
       </Route>
 

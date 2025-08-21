@@ -1,7 +1,10 @@
 import imagenlocal from "../assets/imagen.jpg"
 import {BtnVolver} from "../components/UI/buttons/BtnVolver"
+import { useParams, useSearchParams } from "react-router-dom";
 
 export const ImagenesPage = () => {
+    const [searchParams] = useSearchParams();
+    const src = searchParams.get("src")
     return (
         <main
         className="max-w-3xl mx-auto p-6 space-y-10">
@@ -52,6 +55,15 @@ export const ImagenesPage = () => {
                 alt="imagen desde internet" 
                 loading="lazy"
                 />
+            </section>
+            <section className="space-y-2">
+                <h2 
+                className="text-xl font-semibold">
+                    Imagen con search params
+                </h2>
+                <img 
+                src={src} 
+                alt="imagen local" />
             </section>
         </main>
     )

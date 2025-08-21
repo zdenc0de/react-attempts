@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 export const CardList = () => {
+  const urlImage = "https://i.ytimg.com/vi/6yz_wG9hw1I/maxresdefault.jpg";
   const temasTeoria = [
     {
       title: "useEffect",
@@ -8,7 +9,7 @@ export const CardList = () => {
     },
     {
       title: "imagenes",
-      to: "/imagenes",
+      to: `/imagenes?src=${urlImage}`,
     },
     {
       title: "rutas anidadas",
