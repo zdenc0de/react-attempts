@@ -14,6 +14,10 @@ export const CardList = () => {
     {
       title: "rutas anidadas",
       to: "/rutasanidadas",
+    },
+    {
+      title: "apis",
+      to: "/apis",
     }
   ]
 

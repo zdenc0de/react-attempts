@@ -7,12 +7,15 @@ import { ImagenesPage } from "../pages/ImagenesPage";
 import { RutasAnidadasPage } from "../pages/RutasAnidadasPage";
 import { PerfilPage } from "../pages/PerfilPage";
 import { ConfiguracionPage } from "../pages/ConfiguracionPage";
+import { ApisPage } from "../pages/ApisPage";
 
 export const MyRoutes = () => (
   <BrowserRouter>
     <Routes>
+      <Route path="/home" element={<Navigate to="/" replace />} />
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/apis" element={<ApisPage />} />
       <Route path="/useEffect" element={<UseEffectPage />} />
       <Route path="/imagenes" element={<ImagenesPage />} />
       <Route path="/rutasanidadas" element={<RutasAnidadasPage />} >
