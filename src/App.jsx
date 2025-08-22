@@ -1,9 +1,22 @@
 import { MyRoutes } from "./routers/router.jsx";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+const queryClient = new QueryClient();
 
 function App() {
 
   return (
-    <MyRoutes />
+    <QueryClientProvider client={queryClient}>
+      <MyRoutes />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 
