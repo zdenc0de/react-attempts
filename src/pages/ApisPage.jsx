@@ -3,8 +3,6 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 export const ApisPage = () => {
-    const [pokemons, setPokemons] = useState([])
-    const [cargando, setCargando] = useState(true)
     const {data, isLoading, error} = useQuery({
         queryKey: ['consulta a pokeapi'],
         queryFn: async() => {
@@ -17,26 +15,12 @@ export const ApisPage = () => {
             Cargando...
         </span>
     )
-``
+
     if (error) return (
         <span>
             Error: {error.message}
         </span>
     )
-
-    useEffect(() => {
-        axios.get("https://pokeapi.co/api/v2/pokemon?limit=20")
-        .then((res) => {
-            setPokemons(res.data.results)
-            setCargando(false)
-            console.log("data", res)
-        })
-        .catch ((err) => {
-            console.error("Error fetching data:", err)
-            setCargando(false)
-        })
-
-    }, [])
 
     {/*
     useEffect(() => {
