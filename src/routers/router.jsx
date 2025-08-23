@@ -7,6 +7,7 @@ import { ImagenesPage } from "../pages/ImagenesPage";
 import { RutasAnidadasPage } from "../pages/RutasAnidadasPage";
 import { PerfilPage } from "../pages/PerfilPage";
 import { ConfiguracionPage } from "../pages/ConfiguracionPage";
+import { FormulariosPage } from "../pages/FormulariosPage";
 import { ApisPage } from "../pages/ApisPage";
 
 export const MyRoutes = () => (
@@ -18,6 +19,7 @@ export const MyRoutes = () => (
       <Route path="/apis" element={<ApisPage />} />
       <Route path="/useEffect" element={<UseEffectPage />} />
       <Route path="/imagenes" element={<ImagenesPage />} />
+      <Route path="/formularios" element={<FormulariosPage />} />
       <Route path="/rutasanidadas" element={<RutasAnidadasPage />} >
         {/* ruta por defecto */}
         <Route index element={<Navigate to="perfil/10" replace/>} />

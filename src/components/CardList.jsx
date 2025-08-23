@@ -18,6 +18,10 @@ export const CardList = () => {
     {
       title: "apis",
       to: "/apis",
+    },
+    {
+      title: "formularios",
+      to: "/formularios",
     }
   ]
 
