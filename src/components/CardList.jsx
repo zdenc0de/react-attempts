@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 export const CardList = () => {
+  const [ itemSelect, setItemSelect ] = useState();
   const urlImage = "https://i.ytimg.com/vi/6yz_wG9hw1I/maxresdefault.jpg";
   const temasTeoria = [
     {
@@ -28,7 +30,7 @@ export const CardList = () => {
   return (
     <div className="flex flex-col gap-4">
       {temasTeoria.map((item, index) => (
-        <Link 
+        <Link onClick ={() => setItemSelect(item)}
           to={item.to} 
           key={index} 
           className="group w-full bg-[#151515] p-5 rounded-xl border-3 border-[#333] flex justify-between items-center hover:border-[#e776f3] cursor-pointer"

@@ -3,16 +3,22 @@ export const FormulariosPage = () => {
     const { 
         register,
          handleSubmit, 
-         formState: { errors },
-         } = useForm()
+         formState: { errors }, watch, reset
+         } = useForm({
+            defaultValues: {
+                nombre: "",
+                correo: "",
+                edad: 0
+            }
+         })
     const enviar = (data) => {
 
         alert(data.correo)
     }
     return (
-        <main className="h-screen text-black flex flex-col gap-g p-4">
+        <main className="h-screen text-black flex flex-col gap-5 p-4">
             <h1>
-                Formularios Page
+                Formularios Page {watch("nombre")}
             </h1>
             <form onSubmit={handleSubmit(enviar)} 
             className="border p-2 flex flex-col gap-4">
@@ -81,10 +87,16 @@ export const FormulariosPage = () => {
                 </section>
                 <button
                 type="submit"
-                className="p-2 bg-black text-white ml-2 hover:bg-gray-800">
+                className="px-4 py-2 rounded bg-black text-white hover:bg-indigo-700">
                     Enviar
                 </button>
             </form>
+            <button
+                onClick={() => reset()}
+                type="button"
+                className="px-4 py-2 rounded bg-black text-white hover:bg-indigo-700">
+                    Resetear
+                </button>
         </main>
         
     )
