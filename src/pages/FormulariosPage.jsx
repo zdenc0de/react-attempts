@@ -61,6 +61,23 @@ export const FormulariosPage = () => {
                     <h2>
                         Validar Numeros 
                     </h2>
+                    <input type="number" {...register("edad", {
+                        required: "La edad es obligatoria",
+                        valueAsNumber: true,
+                        min: {
+                            value: 18, 
+                            message: "Debe ser mayor a 18"
+                        },
+                        max: {
+                            value: 99, 
+                            message: "Edad maxima permitida 99"
+                        }
+                    })} 
+                    placeholder="Ej: 25"
+                    />
+                    <p>
+                        {errors.edad?.message}
+                    </p>
                 </section>
                 <button
                 type="submit"
