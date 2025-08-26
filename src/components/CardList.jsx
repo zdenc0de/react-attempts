@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { use, useState } from "react"
+import { useMenuStore } from "../store/MenuStore"
 
 export const CardList = () => {
-  const [ itemSelect, setItemSelect ] = useState();
+  const {setItemSelect} = useMenuStore()
   const urlImage = "https://i.ytimg.com/vi/6yz_wG9hw1I/maxresdefault.jpg";
   const temasTeoria = [
     {
@@ -24,6 +25,10 @@ export const CardList = () => {
     {
       title: "formularios",
       to: "/formularios",
+    }, 
+    {
+      title: "zustand",
+      to: "/zustand",
     }
   ]
 

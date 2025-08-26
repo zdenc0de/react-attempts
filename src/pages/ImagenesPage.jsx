@@ -1,8 +1,10 @@
 import imagenlocal from "../assets/imagen.jpg"
 import {BtnVolver} from "../components/UI/buttons/BtnVolver"
 import { useParams, useSearchParams } from "react-router-dom";
+import { useMenuStore } from "../store/MenuStore";
 
 export const ImagenesPage = () => {
+    const {itemSelect} = useMenuStore()
     const [searchParams] = useSearchParams();
     const src = searchParams.get("src")
     return (
@@ -13,6 +15,10 @@ export const ImagenesPage = () => {
             className="text-3xl font-bold text-center">
                 Imagenes con REACT
             </h1>
+            {itemSelect?.title}
+            {
+               itemSelect?.to
+            }
             <section className="space-y-2">
                 <h2 
                 className="text-xl font-semibold">

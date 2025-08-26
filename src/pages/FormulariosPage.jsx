@@ -1,5 +1,8 @@
 import { useForm } from "react-hook-form"
+import { useMenuStore } from "../store/MenuStore"
+
 export const FormulariosPage = () => {
+    const {itemSelect} = useMenuStore()
     const { 
         register,
          handleSubmit, 
@@ -20,6 +23,10 @@ export const FormulariosPage = () => {
             <h1>
                 Formularios Page {watch("nombre")}
             </h1>
+             {itemSelect?.title}
+            {
+               itemSelect?.to
+            }
             <form onSubmit={handleSubmit(enviar)} 
             className="border p-2 flex flex-col gap-4">
                 <section
