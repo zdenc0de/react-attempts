@@ -10,6 +10,7 @@ import { ConfiguracionPage } from "../pages/ConfiguracionPage";
 import { FormulariosPage } from "../pages/FormulariosPage";
 import { ApisPage } from "../pages/ApisPage";
 import { ZustandPage } from "../pages/ZustandPage";
+import { CrudSupabase } from "../pages/CrudSupabase";
 
 export const MyRoutes = () => (
   <BrowserRouter>
@@ -18,6 +19,7 @@ export const MyRoutes = () => (
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/apis" element={<ApisPage />} />
+      <Route path="/crudsupabase" element={<CrudSupabase />} />
       <Route path="/useEffect" element={<UseEffectPage />} />
       <Route path="/imagenes" element={<ImagenesPage />} />
       <Route path="/formularios" element={<FormulariosPage />} />

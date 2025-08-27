@@ -29,6 +29,10 @@ export const CardList = () => {
     {
       title: "zustand",
       to: "/zustand",
+    }, 
+    {
+      title: "crud supabase",
+      to: "/crudsupabase",
     }
   ]
 
