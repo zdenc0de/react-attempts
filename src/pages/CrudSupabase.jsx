@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "@tanstack/react-query"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { useTareasStore } from "../store/TareasStore"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { useForm } from "react-hook-form"
@@ -6,6 +6,7 @@ import { toast, Toaster } from "sonner"
 
 export const CrudSupabase = () => {
     const {mostrarTareas, insertarTareas} = useTareasStore()
+    const queryClient = useQueryClient()
     const {
         register, 
         handleSubmit, 
@@ -29,6 +30,8 @@ export const CrudSupabase = () => {
         }, 
         onSuccess:() => {
             toast.success("Tarea insertada correctamente")
+            queryClient.invalidateQueries({queryKey:["mostrar tareas"]})
+            reset()
         }
     })
 
@@ -41,14 +44,14 @@ export const CrudSupabase = () => {
     return (
         <main
         className="min h-screen bg-amber-300 flex items-center justify-center p-4">
-            <Toaster position="top-right" richColors/>
+            <Toaster position="top-right" />
             <div
             className="bg-white p-6 rounded-xl shadow-xl w-full max-2-md">
                 <h1
                 className="text-2xl font-bold text-center text-black mb-4">
                     Tareas - SUPABASE + REACT
                 </h1>
-                <form onSubmit={handleSubmit()}
+                <form onSubmit={handleSubmit(mutate)}
                 className="flex gap-2 mb-4">
                     <input {...register("nombre", { required: "La tarea es requerida" })}
                     type="text"
@@ -61,10 +64,13 @@ export const CrudSupabase = () => {
                                 {errors.nombre.message}
                         </p>
                     }
-                    <button
+                    {
+                        isPending ? (<span>Guardando...</span>) : (<button
                     className="bg-amber-400 text-black font-bold px-4 rounded hover:bg-amber-300 cursor-pointer">
                         Agregar
-                    </button>
+                    </button>)
+                    }
+                    
                 </form>
                 <ul
                className="flex flex-col">
