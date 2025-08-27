@@ -19,6 +19,14 @@ export const CrudSupabase = () => {
                <span>
                    CrudSupabase
                </span>
+               <section
+               className="flex flex-col gap-2">
+                {
+                data?.map((item, index) => {
+                    return (<span key={index}>{item.nombre}</span>)
+                })
+               }
+               </section>
         </div>
     )
 }
