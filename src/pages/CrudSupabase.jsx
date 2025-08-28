@@ -2,10 +2,12 @@ import { useQueryClient } from "@tanstack/react-query"
 import { Icon } from "@iconify/react"
 import { useForm } from "react-hook-form"
 import { toast, Toaster } from "sonner"
-import { useInsertarTareasMutation, useMostrarTareasQuery } from "../tanstack/TareasStack"
+import { useEliminarTareasMutation, useInsertarTareasMutation, useMostrarTareasQuery } from "../tanstack/TareasStack"
+import { useTareasStore } from "../store/TareasStore"
 
 export const CrudSupabase = () => {
     const queryClient = useQueryClient()
+    const { setItemSelect } = useTareasStore() // ← Agregar esta línea
     const {
         register, 
         handleSubmit, 
@@ -15,6 +17,7 @@ export const CrudSupabase = () => {
 
     const { data, isLoading, error} = useMostrarTareasQuery() 
     const {mutate, isPending} = useInsertarTareasMutation(reset)
+    const {mutate:mutateEliminar, isPending:isPendingEliminar} = useEliminarTareasMutation()
     
     if (isLoading) {
         return <span>Cargando...</span>   
@@ -60,7 +63,10 @@ export const CrudSupabase = () => {
                             <span className={`cursor-pointer flex-1 ${item.state ? "line-through text-gray-500": ""}`}>
                                 {item.nombre}
                             </span>
-                            <Icon 
+                            <Icon onClick={() => {
+                                setItemSelect(item)
+                                mutateEliminar()
+                            }}
                                 icon="picon:skull" 
                                 width="30" 
                                 height="30" 

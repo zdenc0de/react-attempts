@@ -43,6 +43,13 @@ export const useEliminarTareasMutation = () => {
                 id: itemSelect?.id, 
             }
             await eliminarTareas(p)
+        }, 
+        onError: (error) => {
+            toast.error("Error: " + error.message)
+        },
+        onSuccess:() => {
+            queryClient.invalidateQueries(["mostrar tareas"])
+            toast.success("Tarea eliminada correctamente")
         }
     })
 }
