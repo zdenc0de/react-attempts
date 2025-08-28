@@ -4,6 +4,7 @@ import { set, useForm } from "react-hook-form"
 import { toast, Toaster } from "sonner"
 import { useEditarTareaMutation, useEliminarTareasMutation, useInsertarTareasMutation, useMostrarTareasQuery } from "../tanstack/TareasStack"
 import { useTareasStore } from "../store/TareasStore"
+import { Modal } from "../components/Modal"
 
 export const CrudSupabase = () => {
     const queryClient = useQueryClient()
@@ -30,6 +31,7 @@ export const CrudSupabase = () => {
     return (
         <main className="min-h-screen bg-amber-300 flex items-center justify-center p-4">
             <Toaster position="top-right" />
+            <Modal/>
             <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md">
                 <h1 className="text-2xl font-bold text-center text-black mb-4">
                     Tareas - SUPABASE + REACT
