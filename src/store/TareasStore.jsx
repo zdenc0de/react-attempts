@@ -3,6 +3,8 @@ import { supabase } from "../supabase/supabase.config"
 
 const tabla = "tareas"
 export const useTareasStore = create((set) => ({
+    itemSelect: null,
+    setItemSelect: (p) => set({ itemSelect: p }),
     mostrarTareas: async() => {
         const {data, error} = await supabase.from(tabla).select()
         if (error) {
