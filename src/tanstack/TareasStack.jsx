@@ -53,3 +53,24 @@ export const useEliminarTareasMutation = () => {
         }
     })
 }
+export const useEditarTareaMutation = () => {
+    const {editarTareas, itemSelect} = useTareasStore()
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationKey: ["Editar tarea"],
+        mutationFn:async () => {
+            const p = {
+                id: itemSelect?.id,
+                state: !itemSelect?.state
+            }
+            await editarTareas(p)
+        }, 
+        onError: (error) => {
+            toast.error("Error: " + error.message)
+        },
+        onSuccess:() => {
+            toast.success("Tarea editada correctamente")
+            queryClient.invalidateQueries(["mostrar tareas"])
+        }
+    })
+}

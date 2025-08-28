@@ -1,13 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { Icon } from "@iconify/react"
-import { useForm } from "react-hook-form"
+import { set, useForm } from "react-hook-form"
 import { toast, Toaster } from "sonner"
-import { useEliminarTareasMutation, useInsertarTareasMutation, useMostrarTareasQuery } from "../tanstack/TareasStack"
+import { useEditarTareaMutation, useEliminarTareasMutation, useInsertarTareasMutation, useMostrarTareasQuery } from "../tanstack/TareasStack"
 import { useTareasStore } from "../store/TareasStore"
 
 export const CrudSupabase = () => {
     const queryClient = useQueryClient()
-    const { setItemSelect } = useTareasStore() // ← Agregar esta línea
+    const { setItemSelect } = useTareasStore() 
     const {
         register, 
         handleSubmit, 
@@ -18,7 +18,8 @@ export const CrudSupabase = () => {
     const { data, isLoading, error} = useMostrarTareasQuery() 
     const {mutate, isPending} = useInsertarTareasMutation(reset)
     const {mutate:mutateEliminar, isPending:isPendingEliminar} = useEliminarTareasMutation()
-    
+    const {mutate:mutateEditar, isPending:isPendingEditar} = useEditarTareaMutation()
+
     if (isLoading) {
         return <span>Cargando...</span>   
     }
@@ -54,13 +55,18 @@ export const CrudSupabase = () => {
                     )}
                 </form>
                 
-                <ul className="flex flex-col gap-2">
+                <ul 
+                className="flex flex-col gap-2">
                     {data?.map((item, index) => (
                         <li 
                             className="flex justify-between items-center p-3 bg-amber-100 rounded shadow-sm"
                             key={index}
                         >
-                            <span className={`cursor-pointer flex-1 ${item.state ? "line-through text-gray-500": ""}`}>
+                            <span onClick = {() => {
+                                setItemSelect(item)
+                                mutateEditar()
+                            }}
+                            className={`cursor-pointer flex-1 ${item.state ? "line-through text-gray-500": ""}`}>
                                 {item.nombre}
                             </span>
                             <Icon onClick={() => {
