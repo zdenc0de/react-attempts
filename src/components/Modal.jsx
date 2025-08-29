@@ -1,20 +1,34 @@
 import { Icon } from "@iconify/react"
-import { useForm } from "react-hook-form" // Removí "set"
+import { useForm } from "react-hook-form"
 import { useInsertarTareasMutation, useEditarTareaMutation } from "../tanstack/TareasStack"
 import { useTareasStore } from "../store/TareasStore"
+import { useEffect } from "react"
 
 export const Modal = () => {
-    const { setStateModal = () => {}, action = "Nueva" } = useTareasStore() 
+    const { setStateModal, action, itemSelect } = useTareasStore() 
 
     const {
         register, 
         handleSubmit, 
-        reset, 
+        reset,
+        setValue, 
         formState:{errors}, 
-    } = useForm()
+    } = useForm({defaultValues:{
+        nombre: itemSelect?.nombre
+    }})
     
-    const {mutate:mutateInsertar, isPending} = useInsertarTareasMutation(reset)
-    const { mutate:mutateEditar} = useEditarTareaMutation()
+    const {mutate:mutateInsertar, isPending: isPendingInsertar} = useInsertarTareasMutation(reset)
+    const { mutate:mutateEditar, isPending: isPendingEditar} = useEditarTareaMutation()
+
+    useEffect(() => {
+        if (action === "Editar" && itemSelect) {
+            setValue("nombre", itemSelect.nombre)
+        } else {
+            setValue("nombre", "")
+        }
+    }, [action, itemSelect, setValue])
+
+    const isPending = isPendingInsertar || isPendingEditar
 
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
@@ -23,14 +37,20 @@ export const Modal = () => {
                     <span className="font-bold text-2xl">
                         {action === "Editar" ? "Editar" : "Agregar"} Tarea
                     </span>
-                    <Icon onClick={() => setStateModal(false)}
+                    <Icon 
+                        onClick={() => {
+                        setStateModal(false)
+                        reset() 
+                    }}
                         className="cursor-pointer" 
                         icon="carbon:close-outline" 
                         width="32" 
                         height="32" 
                     />
                 </div>
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit(action==="Nueva"? mutateInsertar : mutateEditar)}>
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit(
+                    action === "Nuevo" ? mutateInsertar : mutateEditar 
+                )}>
                     <input 
                         {...register("nombre", { required: "La tarea es requerida" })}
                         type="text"
@@ -49,7 +69,7 @@ export const Modal = () => {
                             <button 
                                 type="submit"
                                 className="bg-amber-400 text-black font-bold px-4 py-2 rounded hover:bg-amber-300 cursor-pointer">
-                                Agregar
+                                {action === "Editar" ? "Actualizar" : "Agregar"} 
                             </button>
                         )}
                     </div>

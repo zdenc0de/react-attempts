@@ -56,15 +56,14 @@ export const useEliminarTareasMutation = () => {
     })
 }
 export const useEditarTareaMutation = () => {
-    const {editarTareas, itemSelect} = useTareasStore()
+    const {editarTareas, itemSelect, setStateModal} = useTareasStore() // ✅ Agregar setStateModal
     const queryClient = useQueryClient()
     return useMutation({
         mutationKey: ["Editar tarea"],
         mutationFn:async (data) => {
             const p = {
                 id: itemSelect?.id,
-                state: !itemSelect?.state,
-                nombre: data.nombre,
+                nombre: data.nombre, 
             }
             await editarTareas(p)
         }, 
@@ -73,6 +72,7 @@ export const useEditarTareaMutation = () => {
         },
         onSuccess:() => {
             toast.success("Tarea editada correctamente")
+            setStateModal(false) 
             queryClient.invalidateQueries(["mostrar tareas"])
         }
     })

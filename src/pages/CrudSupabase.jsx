@@ -57,6 +57,7 @@ export const CrudSupabase = () => {
                         <button onClick = {() => {
                             setStateModal(true)
                             setAction("Nuevo")
+                            setItemSelect(null)
                         }}
                         className="bg-amber-400 text-black font-bold px-4 py-2 rounded hover:bg-amber-300 cursor-pointer">
                             Agregar
@@ -85,6 +86,7 @@ export const CrudSupabase = () => {
                                 width="30" 
                                 height="30"
                                 onClick={() => {
+                                    setItemSelect(item)
                                     setStateModal(true)
                                     setAction("Editar")
                                 } } />
