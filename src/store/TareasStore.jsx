@@ -3,6 +3,14 @@ import { supabase } from "../supabase/supabase.config"
 
 const tabla = "tareas"
 export const useTareasStore = create((set) => ({
+    action:"Nueva", 
+    setAction: (p) => {
+        set({ action: p })
+    },
+    stateModal: false,
+    setStateModal: (p) => {
+        set({ stateModal: p })
+    },
     itemSelect: null,
     setItemSelect: (p) => set({ itemSelect: p }),
     mostrarTareas: async() => {

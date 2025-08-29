@@ -1,36 +1,36 @@
 import { Icon } from "@iconify/react"
-import { set, useForm } from "react-hook-form"
-import { 
-    useInsertarTareasMutation,
-    useEditarTareaMutation
-} from "../tanstack/TareasStack"
-
+import { useForm } from "react-hook-form" // Removí "set"
+import { useInsertarTareasMutation, useEditarTareaMutation } from "../tanstack/TareasStack"
+import { useTareasStore } from "../store/TareasStore"
 
 export const Modal = () => {
-    
+    const { setStateModal = () => {}, action = "Nueva" } = useTareasStore() 
+
     const {
-            register, 
-            handleSubmit, 
-            reset, 
-            formState:{errors}, 
-        } = useForm()
-    const {mutate, isPending} = useInsertarTareasMutation(reset)
-    const {mutate:mutateEditar, isPending:isPendingEditar} = useEditarTareaMutation()
+        register, 
+        handleSubmit, 
+        reset, 
+        formState:{errors}, 
+    } = useForm()
+    
+    const {mutate:mutateInsertar, isPending} = useInsertarTareasMutation(reset)
+    const { mutate:mutateEditar} = useEditarTareaMutation()
 
     return (
-        <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
-            <div 
-            className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
-                <form onSubmit={handleSubmit(mutate)}
-                className="flex justify-between mb-4">
-                    <span
-                    className="font-bold text-2xl">
-                        Nueva Tarea
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+            <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md">
+                <div className="flex justify-between mb-4"> 
+                    <span className="font-bold text-2xl">
+                        {action === "Editar" ? "Editar" : "Agregar"} Tarea
                     </span>
-                    <Icon className="cursor-pointer" icon="carbon:close-outline" width="32" height="32" />
-                </form>
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit(data => mutate(data))}>
+                    <Icon onClick={() => setStateModal(false)}
+                        className="cursor-pointer" 
+                        icon="carbon:close-outline" 
+                        width="32" 
+                        height="32" 
+                    />
+                </div>
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit(action==="Nueva"? mutateInsertar : mutateEditar)}>
                     <input 
                         {...register("nombre", { required: "La tarea es requerida" })}
                         type="text"
