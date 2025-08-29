@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import { use, useState } from "react"
 import { useMenuStore } from "../store/MenuStore"
 
 export const CardList = () => {

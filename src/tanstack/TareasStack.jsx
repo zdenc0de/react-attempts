@@ -82,7 +82,7 @@ export const useEditarStateTareaMutation = () => {
     const queryClient = useQueryClient()
     return useMutation({
         mutationKey: ["Editar tarea"],
-        mutationFn:async (data) => {
+        mutationFn:async () => {
             const p = {
                 id: itemSelect?.id,
                 state: !itemSelect?.state,

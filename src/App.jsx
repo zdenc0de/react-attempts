@@ -1,8 +1,5 @@
 import { MyRoutes } from "./routers/router.jsx";
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'

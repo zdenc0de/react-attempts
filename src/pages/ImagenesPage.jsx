@@ -1,6 +1,6 @@
 import imagenlocal from "../assets/imagen.jpg"
 import {BtnVolver} from "../components/UI/buttons/BtnVolver"
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useMenuStore } from "../store/MenuStore";
 
 export const ImagenesPage = () => {

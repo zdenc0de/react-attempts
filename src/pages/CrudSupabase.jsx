@@ -1,11 +1,8 @@
-import { useQueryClient } from "@tanstack/react-query"
 import { Icon } from "@iconify/react"
-import { set, useForm } from "react-hook-form"
-import { toast, Toaster } from "sonner"
+import { useForm } from "react-hook-form"
+import { Toaster } from "sonner"
 import { 
-    useEditarTareaMutation, 
     useEliminarTareasMutation, 
-    useInsertarTareasMutation, 
     useMostrarTareasQuery,
     useEditarStateTareaMutation } 
 from "../tanstack/TareasStack"
@@ -13,19 +10,14 @@ import { useTareasStore } from "../store/TareasStore"
 import { Modal } from "../components/Modal"
 
 export const CrudSupabase = () => {
-    const queryClient = useQueryClient()
     const { setItemSelect, stateModal, setStateModal, setAction } = useTareasStore() 
     const {
         register, 
-        handleSubmit, 
-        reset, 
-        formState:{errors}, 
     } = useForm()
 
     const { data, isLoading, error} = useMostrarTareasQuery() 
-    const {mutate, isPending} = useInsertarTareasMutation(reset)
-    const {mutate:mutateEliminar, isPending:isPendingEliminar} = useEliminarTareasMutation()
-    const {mutate:mutateEditar, isPending:isPendingEditar} = useEditarStateTareaMutation()
+    const {mutate:mutateEliminar} = useEliminarTareasMutation()
+    const {mutate:mutateEditar} = useEditarStateTareaMutation()
 
     if (isLoading) {
         return <span>Cargando...</span>   
