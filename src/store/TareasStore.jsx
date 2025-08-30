@@ -20,6 +20,18 @@ export const useTareasStore = create((set) => ({
         }
         return data
     }, 
+    buscador:"",
+    setBuscador: (p) => set({buscador: p}),
+    buscarTareas: async(p) => {
+    const {data, error} = await supabase
+        .from(tabla)
+        .select()
+        .ilike("nombre", `%${p.nombre}%`).order("id", { ascending: true })
+    if (error) {
+        throw new Error(error.message)
+    }
+    return data
+}, 
     insertarTareas: async(p) => {
         const {error} = await supabase.from(tabla).insert(p)
         if(error) {

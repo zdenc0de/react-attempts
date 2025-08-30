@@ -11,6 +11,15 @@ export const useMostrarTareasQuery = () => {
     })
 }
 
+export const useBuscarTareasQuery = () => {
+    const {buscarTareas, buscador} = useTareasStore()
+     return useQuery ({
+        queryKey:["buscar tareas", buscador], // ✅ Simplificado
+        queryFn: () => buscarTareas({nombre: buscador}), 
+        enabled: true // ✅ Asegurar que siempre esté habilitado
+    })
+}
+
 export const useInsertarTareasMutation = (reset) => {
     const {insertarTareas, setStateModal} = useTareasStore()
     const queryClient = useQueryClient()
@@ -29,8 +38,9 @@ export const useInsertarTareasMutation = (reset) => {
             toast.success("Tarea insertada correctamente")
             reset()
             setStateModal(false)
+            // ✅ Invalidar ambas queries
             queryClient.invalidateQueries({queryKey:["mostrar tareas"]})
-           
+            queryClient.invalidateQueries({queryKey:["buscar tareas"]})
         }
     })
 }
@@ -50,13 +60,16 @@ export const useEliminarTareasMutation = () => {
             toast.error("Error: " + error.message)
         },
         onSuccess:() => {
+            // ✅ Invalidar ambas queries
             queryClient.invalidateQueries(["mostrar tareas"])
+            queryClient.invalidateQueries(["buscar tareas"])
             toast.success("Tarea eliminada correctamente")
         }
     })
 }
+
 export const useEditarTareaMutation = () => {
-    const {editarTareas, itemSelect, setStateModal} = useTareasStore() // ✅ Agregar setStateModal
+    const {editarTareas, itemSelect, setStateModal} = useTareasStore()
     const queryClient = useQueryClient()
     return useMutation({
         mutationKey: ["Editar tarea"],
@@ -72,21 +85,23 @@ export const useEditarTareaMutation = () => {
         },
         onSuccess:() => {
             toast.success("Tarea editada correctamente")
-            setStateModal(false) 
+            setStateModal(false)
+            // ✅ Invalidar ambas queries 
             queryClient.invalidateQueries(["mostrar tareas"])
+            queryClient.invalidateQueries(["buscar tareas"])
         }
     })
 }
+
 export const useEditarStateTareaMutation = () => {
     const {editarTareas, itemSelect} = useTareasStore()
     const queryClient = useQueryClient()
     return useMutation({
-        mutationKey: ["Editar tarea"],
-        mutationFn:async (data) => {
+        mutationKey: ["Editar estado tarea"], // ✅ Cambiar key para evitar conflictos
+        mutationFn:async () => {
             const p = {
                 id: itemSelect?.id,
                 state: !itemSelect?.state,
-                
             }
             await editarTareas(p)
         }, 
@@ -95,7 +110,9 @@ export const useEditarStateTareaMutation = () => {
         },
         onSuccess:() => {
             toast.success("Tarea editada correctamente")
+            // ✅ Invalidar ambas queries
             queryClient.invalidateQueries(["mostrar tareas"])
+            queryClient.invalidateQueries(["buscar tareas"])
         }
     })
 }

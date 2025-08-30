@@ -7,14 +7,15 @@ import {
     useEliminarTareasMutation, 
     useInsertarTareasMutation, 
     useMostrarTareasQuery,
-    useEditarStateTareaMutation } 
+    useEditarStateTareaMutation, 
+    useBuscarTareasQuery} 
 from "../tanstack/TareasStack"
 import { useTareasStore } from "../store/TareasStore"
 import { Modal } from "../components/Modal"
 
 export const CrudSupabase = () => {
     const queryClient = useQueryClient()
-    const { setItemSelect, stateModal, setStateModal, setAction } = useTareasStore() 
+    const { setItemSelect, stateModal, setStateModal, setAction, setBuscador } = useTareasStore() 
     const {
         register, 
         handleSubmit, 
@@ -22,7 +23,8 @@ export const CrudSupabase = () => {
         formState:{errors}, 
     } = useForm()
 
-    const { data, isLoading, error} = useMostrarTareasQuery() 
+    const { data, isLoading, error} = useMostrarTareasQuery()
+    const {data: databuscador, isLoading: isLoadingBuscador, error: errorBuscador} = useBuscarTareasQuery()
     const {mutate, isPending} = useInsertarTareasMutation(reset)
     const {mutate:mutateEliminar, isPending:isPendingEliminar} = useEliminarTareasMutation()
     const {mutate:mutateEditar, isPending:isPendingEditar} = useEditarStateTareaMutation()
@@ -49,8 +51,8 @@ export const CrudSupabase = () => {
                 <div
                 className="flex flex-col gap-2 mb-4">
                     <input 
-                        {...register("nombre", { required: "La tarea es requerida" })}
-                        type="text"
+                    onChange={(e) => setBuscador(e.target.value)} 
+                        type="search"
                         className="border p-2 rounded-md focus:outline-none focus:border-0 focus:ring-2 focus:ring-amber-400"
                         placeholder="Escribe una tarea"
                     />
@@ -66,7 +68,7 @@ export const CrudSupabase = () => {
                 
                 <ul 
                 className="flex flex-col gap-2">
-                    {data?.map((item, index) => (
+                    {databuscador?.map((item, index) => (
                         <li 
                             className="flex justify-between items-center p-3 bg-amber-100 rounded shadow-sm"
                             key={index}
