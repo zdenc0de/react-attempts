@@ -13,7 +13,8 @@ import { ZustandPage } from "../pages/ZustandPage";
 import { CrudSupabase } from "../pages/CrudSupabase";
 
 export const MyRoutes = () => (
-  <BrowserRouter>
+  <BrowserRouter
+    basename="/react-attempts">
     <Routes>
       <Route path="/home" element={<Navigate to="/" replace />} />
       <Route path="/" element={<Home />} />
