@@ -1,12 +1,16 @@
-# React + Vite
+# React Attempts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio es un conjunto de **intentos y pruebas iniciales con React**, donde fui experimentando con conceptos básicos y librerías del ecosistema.  
+El código no está pensado como un proyecto final ni estructurado, sino como un **laboratorio personal** para aprender y practicar.
 
-Currently, two official plugins are available:
+## Contenido principal
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Zustand** → primeros pasos creando un store global para manejar estado.
+- **Hooks personalizados** → funciones simples para entender mejor cómo reutilizar lógica en React.
+- **Stack & estructuras básicas** → ejemplos de implementación y uso dentro de componentes.
+- **Pruebas rápidas** → pequeños fragmentos de código para experimentar con conceptos clave.
 
-## Expanding the ESLint configuration
+## Nota
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+El repositorio puede verse **desordenado** y carece de una arquitectura definida, ya que el objetivo principal fue **explorar y practicar** distintas ideas sin seguir un patrón formal.
+
